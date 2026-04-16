@@ -43,3 +43,42 @@ def get_character_full(character_id: int):
     """, (character_id,)).fetchone()
 
     return dict(data) if data else {"error": "Not found"}
+
+@app.get("/search")
+def search_character(name: str):
+    conn = get_db()
+    data = conn.execute(
+        "SELECT * FROM characters WHERE name LIKE ?",
+        (f"%{name}%",)
+    ).fetchall()
+    conn.close()
+    return [dict(row) for row in data]
+
+@app.get("/breathing/{style}")
+def get_by_breathing(style: str):
+    conn = get_db()
+    data = conn.execute(
+        "SELECT * FROM characters WHERE breathing_style=?",
+        (style,)
+    ).fetchall()
+    conn.close()
+    return [dict(row) for row in data]
+
+from fastapi import Body
+
+@app.post("/characters")
+def add_character(data: dict = Body()):
+    conn = get_db()
+    conn.execute("""
+        INSERT INTO characters (name, breathing_style, rank, affiliation, actor_id)
+        VALUES (?, ?, ?, ?, ?)
+    """, (
+        data["name"],
+        data["breathing_style"],
+        data["rank"],
+        data["affiliation"],
+        data["actor_id"]
+    ))
+    conn.commit()
+    conn.close()
+    return {"message": "Character added successfully"}
