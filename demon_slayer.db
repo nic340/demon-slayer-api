@@ -1,0 +1,23 @@
+CREATE TABLE actors (
+    id INTEGER PRIMARY KEY,
+    name TEXT
+);
+
+CREATE TABLE characters (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    breathing_style TEXT,
+    rank TEXT,
+    affiliation TEXT,
+    actor_id INTEGER
+);
+
+INSERT INTO actors VALUES (1, 'Natsuki Hanae');
+INSERT INTO actors VALUES (2, 'Akari Kito');
+INSERT INTO actors VALUES (3, 'Hiro Shimono');
+INSERT INTO actors VALUES (4, 'Yoshitsugu Matsuoka');
+
+INSERT INTO characters VALUES (1, 'Tanjiro Kamado', 'Water', 'Slayer', 'Demon Slayer Corps', 1);
+INSERT INTO characters VALUES (2, 'Nezuko Kamado', 'Demon', 'Demon', 'None', 2);
+INSERT INTO characters VALUES (3, 'Zenitsu Agatsuma', 'Thunder', 'Slayer', 'Demon Slayer Corps', 3);
+INSERT INTO characters VALUES (4, 'Inosuke Hashibira', 'Beast', 'Slayer', 'Demon Slayer Corps', 4);
