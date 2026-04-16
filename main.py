@@ -32,7 +32,6 @@ def get_actors():
     data = conn.execute("SELECT * FROM actors").fetchall()
     return [dict(row) for row in data]
 
-# BONUS (pang chada 😎)
 @app.get("/characters/{character_id}/full")
 def get_character_full(character_id: int):
     conn = get_db()
